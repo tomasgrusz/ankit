@@ -1,10 +1,3 @@
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarHeader,
-} from "@/components/ui/sidebar";
 import { ImportFileButton } from "./ImportFileButton";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
@@ -36,8 +29,8 @@ export function AppSidebar() {
     exportFile,
   } = useFileContext();
   return (
-    <Sidebar side="right">
-      <SidebarHeader>
+    <div className="w-auto max-w-[300px] p-4 flex flex-col gap-4 h-full">
+      <div className="mb-4 text-center font-bold text-lg">
         <div className="flex items-center justify-between mb-4">
           <h1 className="text-xl font-semibold">Ankit</h1>
           <ThemeToggle />
@@ -58,10 +51,10 @@ export function AppSidebar() {
             </SelectContent>
           </Select>
         </Field>
-      </SidebarHeader>
-      <SidebarContent>
+      </div>
+      <div>
         {fileName && cardType === "multiple-choice" && (
-          <SidebarGroup className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
             <Field>
               <FieldLabel htmlFor="symbol-input">Symbol</FieldLabel>
               <Input
@@ -91,42 +84,38 @@ export function AppSidebar() {
                 </SelectContent>
               </Select>
             </Field>
-          </SidebarGroup>
+          </div>
         )}
-      </SidebarContent>
-      <SidebarFooter>
-        {processedLines && (
-          <SidebarGroup className="flex flex-col gap-4">
-            <Field>
-              <FieldLabel htmlFor="export-format-input">Convert to</FieldLabel>
-              <Select
-                defaultValue="csv"
-                onValueChange={(value) =>
-                  setExportFormat(value as ExportFormat)
-                }
-              >
-                <SelectTrigger id="export-format-input">
-                  <SelectValue placeholder="csv" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="csv">.csv (table format)</SelectItem>
-                  <SelectItem value="apkg" disabled>
-                    .apkg (Anki format)
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </Field>
-            <Button
-              variant="default"
-              size="sm"
-              className="w-full"
-              onClick={exportFile}
+      </div>
+      {processedLines && (
+        <div className="flex flex-col gap-4 grow justify-end">
+          <Field>
+            <FieldLabel htmlFor="export-format-input">Convert to</FieldLabel>
+            <Select
+              defaultValue="csv"
+              onValueChange={(value) => setExportFormat(value as ExportFormat)}
             >
-              Export
-            </Button>
-          </SidebarGroup>
-        )}
-      </SidebarFooter>
-    </Sidebar>
+              <SelectTrigger id="export-format-input">
+                <SelectValue placeholder="csv" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="csv">.csv (table format)</SelectItem>
+                <SelectItem value="apkg" disabled>
+                  .apkg (Anki format)
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </Field>
+          <Button
+            variant="default"
+            size="sm"
+            className="w-full"
+            onClick={exportFile}
+          >
+            Export
+          </Button>
+        </div>
+      )}
+    </div>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 import { FileProvider } from "@/data/file-context";
 import PageContent from "./page-content";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/data/theme-context";
 
 export default function Home() {
@@ -13,9 +12,7 @@ export default function Home() {
       disableTransitionOnChange
     >
       <FileProvider>
-        <SidebarProvider>
-          <PageContent />
-        </SidebarProvider>
+        <PageContent />
       </FileProvider>
     </ThemeProvider>
   );

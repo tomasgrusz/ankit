@@ -12,6 +12,7 @@ import React, {
 } from "react";
 
 type FileContextType = {
+  isLoading: boolean;
   content: string | undefined;
   fileName?: string | undefined;
   cardType: CardType;
@@ -41,7 +42,7 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
   const [cardType, setCardType] = useState<CardType>("front-back");
   const [symbol, setSymbol] = useState<string>("✓");
   const [symbolPosition, setSymbolPosition] = useState<SymbolPosition>("end");
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [processedLines, setProcessedLines] = useState<string[][] | undefined>(
     undefined
   );
@@ -62,11 +63,15 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
         symbolPosition: symbolPosition,
       });
     }
-    setProcessedLines(result);
+    setTimeout(() => {
+      setIsLoading(false);
+      setProcessedLines(result);
+    }, 1000);
   }, [rawLines, symbol, symbolPosition, cardType]);
 
   // Update the content and raw lines when a new file is loaded
   const update = (content: string, name?: string) => {
+    setIsLoading(true);
     setContent(content);
     if (name) {
       setFileName(name);
@@ -82,6 +87,7 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
     setFileName(undefined);
     setRawLines(undefined);
     setProcessedLines(undefined);
+    setIsLoading(false);
     setSymbol("✓");
     setSymbolPosition("end");
     setExportFormat("csv");
@@ -102,6 +108,7 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
   useEffect(() => {
     if (rawLines && symbol && symbolPosition) {
       const id = setTimeout(() => {
+        setIsLoading(true);
         process();
       }, 100);
       return () => clearTimeout(id);
@@ -109,6 +116,7 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
   }, [process, cardType, symbolPosition, symbol, rawLines]);
 
   const context = {
+    isLoading,
     content,
     fileName,
     rawLines,
