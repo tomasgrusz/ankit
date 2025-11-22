@@ -22,7 +22,7 @@ type TableDemoProps = {
   data: string[][];
 };
 
-const ROWS_PER_PAGE = 100;
+const ROWS_PER_PAGE = 20;
 
 const Table: React.FC<TableDemoProps> = ({ data }) => {
   const pageCount = Math.ceil(data.length / ROWS_PER_PAGE);
