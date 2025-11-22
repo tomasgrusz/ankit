@@ -46,8 +46,8 @@ export function AppSidebar() {
               <SelectValue placeholder="front-back" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="front-back">Front/Back</SelectItem>
-              <SelectItem value="multiple-choice">Multiple Choice</SelectItem>
+              <SelectItem value="front-back">Two-sided</SelectItem>
+              <SelectItem value="multiple-choice">Multiple-choice</SelectItem>
             </SelectContent>
           </Select>
         </Field>

@@ -1,4 +1,5 @@
 "use client";
+import PromptSuggestion from "@/components/PromptSuggestion";
 import { AppSidebar } from "@/components/Sidebar";
 import Table from "@/components/Table";
 import {
@@ -25,6 +26,11 @@ export default function PageContent() {
               {isLoading && (
                 <div className="w-full h-full overflow-hidden flex justify-center items-center">
                   <Spinner className="w-[50%] h-4 ml-[25%] mr-[25%] size-8" />
+                </div>
+              )}
+              {!processedLines && !isLoading && (
+                <div className="w-full h-full overflow-hidden flex justify-center items-center">
+                  <PromptSuggestion />
                 </div>
               )}
             </div>
