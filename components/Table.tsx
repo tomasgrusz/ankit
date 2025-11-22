@@ -19,6 +19,7 @@ import { useState } from "react";
 import { useTheme } from "next-themes";
 import prettifyTable from "@/utils/prettifyTable";
 import { useFileContext } from "@/data/file-context";
+import Stats from "./Stats";
 
 type TableDemoProps = {
   data: string[][];
@@ -92,6 +93,7 @@ const Table: React.FC<TableDemoProps> = ({ data }) => {
           </PaginationContent>
         </Pagination>
       )}
+      <Stats />
       <UITable className="w-full overflow-scroll">
         <TableHeader>
           <TableRow>

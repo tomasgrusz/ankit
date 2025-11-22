@@ -110,7 +110,7 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
       const id = setTimeout(() => {
         setIsLoading(true);
         process();
-      }, 100);
+      }, 0);
       return () => clearTimeout(id);
     }
   }, [process, cardType, symbolPosition, symbol, rawLines]);

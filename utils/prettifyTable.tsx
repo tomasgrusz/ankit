@@ -34,6 +34,10 @@ const prettifyTable = (table: string[][], cardType: CardType): string[][] => {
         .some((val) => parseInt(val) === 1);
       return row
         .map((col, index) => {
+          const isEmpty = col.trim() === "";
+          if (isEmpty) {
+            return "⚠️ (empty)";
+          }
           const isChoice = table[0][index].includes("Q_");
           if (!isChoice) {
             return col;
