@@ -9,6 +9,7 @@ import { ImportFileButton } from "./ImportFileButton";
 import { ThemeToggle } from "./ThemeToggle";
 import { Button } from "./ui/button";
 import {
+  CardType,
   ExportFormat,
   SymbolPosition,
   useFileContext,
@@ -27,6 +28,8 @@ export function AppSidebar() {
   const {
     processedLines,
     fileName,
+    cardType,
+    setCardType,
     setSymbol,
     setSymbolPosition,
     setExportFormat,
@@ -40,9 +43,24 @@ export function AppSidebar() {
           <ThemeToggle />
         </div>
         <ImportFileButton />
+        <Field className="mt-4">
+          <FieldLabel htmlFor="card-type-field">Card Type</FieldLabel>
+          <Select
+            defaultValue="front-back"
+            onValueChange={(value) => setCardType(value as CardType)}
+          >
+            <SelectTrigger id="card-type-select">
+              <SelectValue placeholder="front-back" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="front-back">Front/Back</SelectItem>
+              <SelectItem value="multiple-choice">Multiple Choice</SelectItem>
+            </SelectContent>
+          </Select>
+        </Field>
       </SidebarHeader>
       <SidebarContent>
-        {fileName && (
+        {fileName && cardType === "multiple-choice" && (
           <SidebarGroup className="flex flex-col gap-4">
             <Field>
               <FieldLabel htmlFor="symbol-input">Symbol</FieldLabel>

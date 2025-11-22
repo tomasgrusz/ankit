@@ -1,4 +1,5 @@
 import cleanLine from "@/utils/cleanLine";
+import convertLinesToFrontBack from "@/utils/convertLinesToFrontBack";
 import convertLinesToMultipleChoice from "@/utils/convertLinesToMultipleChoice";
 import convertToCSV from "@/utils/convertToCSV";
 import exportCSV from "@/utils/exportCSV";
@@ -13,10 +14,12 @@ import React, {
 type FileContextType = {
   content: string | undefined;
   fileName?: string | undefined;
+  cardType: CardType;
   rawLines?: string[] | undefined;
   processedLines?: string[][] | undefined;
   update: (content: string, fileName?: string) => void;
   clear: () => void;
+  setCardType: (type: CardType) => void;
   setSymbol: (symbol: string) => void;
   setSymbolPosition: (position: SymbolPosition) => void;
   setExportFormat: (format: ExportFormat) => void;
@@ -25,6 +28,7 @@ type FileContextType = {
 
 export type SymbolPosition = "start" | "end" | "anywhere";
 export type ExportFormat = "csv" | "apkg";
+export type CardType = "multiple-choice" | "front-back";
 
 const FileContext = createContext<FileContextType | undefined>(undefined);
 
@@ -34,7 +38,7 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
   const [content, setContent] = useState<string | undefined>(undefined);
   const [fileName, setFileName] = useState<string | undefined>(undefined);
   const [rawLines, setRawLines] = useState<string[] | undefined>(undefined);
-
+  const [cardType, setCardType] = useState<CardType>("front-back");
   const [symbol, setSymbol] = useState<string>("✓");
   const [symbolPosition, setSymbolPosition] = useState<SymbolPosition>("end");
 
@@ -47,15 +51,19 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
   // Process the raw lines into processed lines
   const process = useCallback(() => {
     if (!rawLines) return;
-
-    const result = convertLinesToMultipleChoice({
-      lines: rawLines,
-      choicesPerQuestion: 4,
-      correctSymbol: symbol,
-      symbolPosition: symbolPosition,
-    });
+    let result: string[][] = [];
+    if (cardType === "front-back") {
+      result = convertLinesToFrontBack(rawLines);
+    } else if (cardType === "multiple-choice") {
+      result = convertLinesToMultipleChoice({
+        lines: rawLines,
+        choicesPerQuestion: 4,
+        correctSymbol: symbol,
+        symbolPosition: symbolPosition,
+      });
+    }
     setProcessedLines(result);
-  }, [rawLines, symbol, symbolPosition]);
+  }, [rawLines, symbol, symbolPosition, cardType]);
 
   // Update the content and raw lines when a new file is loaded
   const update = (content: string, name?: string) => {
@@ -98,15 +106,17 @@ export const FileProvider: React.FC<{ children?: React.ReactNode }> = ({
       }, 100);
       return () => clearTimeout(id);
     }
-  }, [process, symbolPosition, symbol, rawLines]);
+  }, [process, cardType, symbolPosition, symbol, rawLines]);
 
   const context = {
     content,
     fileName,
     rawLines,
     processedLines,
+    cardType,
     update,
     clear,
+    setCardType,
     setSymbol,
     setSymbolPosition,
     setExportFormat,

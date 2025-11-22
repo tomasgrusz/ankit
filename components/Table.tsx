@@ -12,12 +12,16 @@ type TableDemoProps = {
 };
 
 const Table: React.FC<TableDemoProps> = ({ data }) => {
+  const columnWidth = `max-w-[${data[0].length > 2 ? 100 : 200}px]`;
   return (
     <UITable className="w-max">
       <TableHeader>
         <TableRow>
           {data[0].map((header, index) => (
-            <TableHead className="max-w-[100px] overflow-x-scroll" key={index}>
+            <TableHead
+              className={`${columnWidth} overflow-x-scroll`}
+              key={index}
+            >
               {header}
             </TableHead>
           ))}
@@ -28,7 +32,7 @@ const Table: React.FC<TableDemoProps> = ({ data }) => {
           <TableRow key={rowIndex}>
             {row.map((cell, cellIndex) => (
               <TableCell
-                className="max-w-[100px] overflow-x-scroll"
+                className={`${columnWidth} overflow-x-scroll`}
                 key={cellIndex}
               >
                 {cell}
