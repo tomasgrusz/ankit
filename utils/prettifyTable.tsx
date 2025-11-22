@@ -28,12 +28,18 @@ const prettifyTable = (table: string[][], cardType: CardType): string[][] => {
           : null
       )
       .filter((idx) => idx !== null);
-    const rows = table.slice(1).map((row) =>
-      row
+    const rows = table.slice(1).map((row) => {
+      const isValid = row[row.length - 1]
+        .split(" ")
+        .some((val) => parseInt(val) === 1);
+      return row
         .map((col, index) => {
           const isChoice = table[0][index].includes("Q_");
           if (!isChoice) {
             return col;
+          }
+          if (!isValid) {
+            return `⚠️ ${col}`;
           }
           const choiceIndex = isChoice
             ? parseInt(table[0][index].split("_")[1])
@@ -44,8 +50,8 @@ const prettifyTable = (table: string[][], cardType: CardType): string[][] => {
           const isCorrect = answers[choiceIndex || 0 - 1] === 1;
           return isCorrect ? `✅ ${col}` : `❌ ${col}`;
         })
-        .filter((_, index) => columns.map((col) => col.index).includes(index))
-    );
+        .filter((_, index) => columns.map((col) => col.index).includes(index));
+    });
     const newHeaders = columns.map((col) => col.newName);
     return [newHeaders, ...rows];
   }

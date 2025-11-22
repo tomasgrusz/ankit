@@ -35,8 +35,8 @@ const Table: React.FC<TableDemoProps> = ({ data }) => {
   const _table = prettifyTable(data, cardType);
   const themedTextColors =
     theme === "dark"
-      ? ["text-green-300", "text-red-300"]
-      : ["text-green-600", "text-red-600"];
+      ? ["text-green-300", "text-red-300", "text-yellow-200"]
+      : ["text-green-600", "text-red-600", "text-yellow-700"];
   return (
     <>
       {pageCount > 1 && (
@@ -114,7 +114,9 @@ const Table: React.FC<TableDemoProps> = ({ data }) => {
                   <TableCell
                     className={`max-w-[200px] overflow-x-scroll ${
                       cell.includes("✅") && "font-bold " + themedTextColors[0]
-                    } ${cell.includes("❌") && themedTextColors[1]}`}
+                    } ${cell.includes("❌") && themedTextColors[1]} ${
+                      cell.includes("⚠️") && themedTextColors[2]
+                    } `}
                     key={cellIndex}
                   >
                     {cell}
