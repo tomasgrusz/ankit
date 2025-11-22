@@ -1,4 +1,5 @@
 "use client";
+import Promo from "@/components/Promo";
 import PromptSuggestion from "@/components/PromptSuggestion";
 import { AppSidebar } from "@/components/Sidebar";
 import Table from "@/components/Table";
@@ -14,6 +15,7 @@ export default function PageContent() {
   const { processedLines, isLoading } = useFileContext();
   return (
     <div>
+      <Promo />
       <main className="page-content w-screen h-screen">
         <ResizablePanelGroup direction="horizontal">
           <ResizablePanel defaultSize={20} minSize={15}>
