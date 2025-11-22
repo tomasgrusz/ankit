@@ -14,10 +14,10 @@ import React, {
 type FileContextType = {
   isLoading: boolean;
   content: string | undefined;
-  fileName?: string | undefined;
+  fileName: string | undefined;
   cardType: CardType;
-  rawLines?: string[] | undefined;
-  processedLines?: string[][] | undefined;
+  rawLines: string[] | undefined;
+  processedLines: string[][] | undefined;
   update: (content: string, fileName?: string) => void;
   clear: () => void;
   setCardType: (type: CardType) => void;

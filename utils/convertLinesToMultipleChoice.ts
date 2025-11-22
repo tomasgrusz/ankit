@@ -5,23 +5,23 @@ type Props = {
     lines: string[];
     choicesPerQuestion?: 2 | 3 | 4 | 5 | 6;
     correctSymbol: string;
-    symbolPosition?: SymbolPosition;
+    symbolPosition: SymbolPosition;
 };
+
+export const checkCorrectSymbol = (line: string, symbolPosition: SymbolPosition, correctSymbol: string): boolean => {
+    if (symbolPosition === "anywhere") {
+        return line.includes(correctSymbol);
+    } else if (symbolPosition === "start") {
+        return line.startsWith(correctSymbol);
+    } else { // "end"
+        return line.endsWith(correctSymbol);
+    }
+}
 
 const convertLinesToMultipleChoice: (props: Props) => string[][] = ({ lines, choicesPerQuestion = 4, correctSymbol, symbolPosition }) => {
     const result = [["Title", "Question", "QType", 
         ...Array.from({ length: choicesPerQuestion }, (_, i) => `Q_${i + 1}`),
      "Answers"]]; // CSV headers
-
-    const checkCorrectSymbol = (line: string): boolean => {
-        if (symbolPosition === "anywhere") {
-            return line.includes(correctSymbol);
-        } else if (symbolPosition === "start") {
-            return line.startsWith(correctSymbol);
-        } else { // "end"
-            return line.endsWith(correctSymbol);
-        }
-    }
 
     // Process each line
     for (let i = 0; i < lines.length; i++) {
@@ -35,7 +35,7 @@ const convertLinesToMultipleChoice: (props: Props) => string[][] = ({ lines, cho
                 if (!line) {
                     break;
                 }
-                if (checkCorrectSymbol(line)) {
+                if (checkCorrectSymbol(line, symbolPosition, correctSymbol)) {
                     line = line.replace(correctSymbol, "");
                     correct.push("1");
                 } else {
@@ -46,7 +46,7 @@ const convertLinesToMultipleChoice: (props: Props) => string[][] = ({ lines, cho
             while (answers.length <= choicesPerQuestion) {
                 answers.push("");
             }
-            result.push([question, question, "1", ...answers.slice(0, choicesPerQuestion + 1), correct.join(" ")]);
+            result.push([question, question, "1", ...answers.slice(0, choicesPerQuestion), correct.join(" ")]);
         }
     }
 

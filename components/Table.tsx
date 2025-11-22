@@ -17,6 +17,8 @@ import {
 } from "./ui/pagination";
 import { useState } from "react";
 import { useTheme } from "next-themes";
+import prettifyTable from "@/utils/prettifyTable";
+import { useFileContext } from "@/data/file-context";
 
 type TableDemoProps = {
   data: string[][];
@@ -28,6 +30,13 @@ const Table: React.FC<TableDemoProps> = ({ data }) => {
   const pageCount = Math.ceil(data.length / ROWS_PER_PAGE);
   const [page, setPage] = useState<number>(1);
   const { theme } = useTheme();
+  const { cardType } = useFileContext();
+
+  const _table = prettifyTable(data, cardType);
+  const themedTextColors =
+    theme === "dark"
+      ? ["text-green-300", "text-red-300"]
+      : ["text-green-600", "text-red-600"];
   return (
     <>
       {pageCount > 1 && (
@@ -86,7 +95,7 @@ const Table: React.FC<TableDemoProps> = ({ data }) => {
       <UITable className="w-full overflow-scroll">
         <TableHeader>
           <TableRow>
-            {data[0].map((header, index) => (
+            {_table[0].map((header, index) => (
               <TableHead
                 className="max-w-[200px] overflow-x-scroll"
                 key={index}
@@ -97,13 +106,15 @@ const Table: React.FC<TableDemoProps> = ({ data }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data
+          {_table
             .slice(1 + (page - 1) * ROWS_PER_PAGE, 1 + page * ROWS_PER_PAGE)
             .map((row, rowIndex) => (
               <TableRow key={rowIndex}>
                 {row.map((cell, cellIndex) => (
                   <TableCell
-                    className="max-w-[200px] overflow-x-scroll"
+                    className={`max-w-[200px] overflow-x-scroll ${
+                      cell.includes("✅") && "font-bold " + themedTextColors[0]
+                    } ${cell.includes("❌") && themedTextColors[1]}`}
                     key={cellIndex}
                   >
                     {cell}

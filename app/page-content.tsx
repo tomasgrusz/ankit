@@ -1,7 +1,6 @@
 "use client";
 import { AppSidebar } from "@/components/Sidebar";
 import Table from "@/components/Table";
-import { Progress } from "@/components/ui/progress";
 import {
   ResizableHandle,
   ResizablePanel,
@@ -9,7 +8,6 @@ import {
 } from "@/components/ui/resizable";
 import { Spinner } from "@/components/ui/spinner";
 import { useFileContext } from "@/data/file-context";
-import { Suspense } from "react";
 
 export default function PageContent() {
   const { processedLines, isLoading } = useFileContext();
