@@ -1,6 +1,6 @@
 <!-- omit in toc -->
 
-# Contributing to Personal Web
+# Contributing to Ankit
 
 First off, thanks for taking the time to contribute! ❤️
 
