@@ -9,7 +9,25 @@ Ankit is an open-source web application for converting text material into format
 <img src="https://img.shields.io/website-up-down-green-red/https/ankit.grusz.dev">
 
 ## 📝 How it works
-*WIP*
+Ankit uses algorithms to scan through users' formatted text materials to convert them into tables that can be imported into Anki as decks.
+
+Ankit currently supports converting two card formats:
+1. (Default) Two-sided cards
+2. Multiple-choice cards
+
+### 1. Generate formatted text material
+Prepare the study materials you wish to use for generating your flashcards. Make use of Ankit's prompt templates to write your prompt for the LLM of choice. This will ensure that the output will be properly formatted and can be recognised by Ankit. 
+
+### 2. Import into Ankit
+Once the flashcards material is ready, you can import it as a `.txt` file into Ankit using the file input. After selecting one of the card formats, Ankit will scan your text and process it into the proper card type. You will see how many flashcards were detected, how they look, and if any format discrepancies were found (missing content, empty options, etc.).
+
+### 3. Edit and Convert
+After Ankit finished analyzing the text, you will be able to visually view how the flashcards look like. This makes it easier to review if the format is correct, as LLMs can often generate invalid or incomplete output. Ankit will also autohighlight any discrepancies like missing rows, helping you correct them before they are exported. Flashcards can also be edited - you can specify how correct choices in multiple-choice cards are determined, delete invalid cards, or replace any duplicates.
+
+### 4. Export
+When the flashcards satisfy your preferences and have a valid format, they will be converted into an exportable format that can be downloaded and imported into Anki for educational use. Ankit currently supports the following export file formats:
+- Comma separated values (`.csv`)
+- *[WIP]* Anki packages (`.apkg`)
 
 ## ❤️‍🔥 Our commitments
 Ankit is committed to supporting your learning by remaining free and accessible to everyone. Because it’s open-source, anyone can create their own version by forking the project.
