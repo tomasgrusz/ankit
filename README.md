@@ -8,6 +8,13 @@ Ankit is an open-source web application for converting text material into format
 
 <img src="https://img.shields.io/website-up-down-green-red/https/ankit.grusz.dev">
 
+## ❤️‍🔥 Our commitment
+Ankit is committed to supporting your learning by remaining free and accessible to everyone. Because it’s open-source, anyone can create their own version by forking the project.
+
+Your privacy matters to us - no personal data or usage analytics are collected. Since Ankit’s code is open for inspection, you can trust its transparency, and if you prefer, run your own Ankit web instance offline (see the `▶️ Running Locally` section for details).
+
+We want you to feel empowered to tailor Ankit to your unique needs. All feedback, suggestions, issues, and contributions are warmly welcomed and appreciated!
+
 ## 📝 How it works
 Ankit uses algorithms to scan through users' formatted text materials to convert them into tables that can be imported into Anki as decks.
 
@@ -28,13 +35,6 @@ After Ankit finished analyzing the text, you will be able to visually view how t
 When the flashcards satisfy your preferences and have a valid format, they will be converted into an exportable format that can be downloaded and imported into Anki for educational use. Ankit currently supports the following export file formats:
 - Comma separated values (`.csv`)
 - *[WIP]* Anki packages (`.apkg`)
-
-## ❤️‍🔥 Our commitments
-Ankit is committed to supporting your learning by remaining free and accessible to everyone. Because it’s open-source, anyone can create their own version by forking the project.
-
-Your privacy matters to us - no personal data or usage analytics are collected. Since Ankit’s code is open for inspection, you can trust its transparency, and if you prefer, run your own Ankit web instance offline (see the `▶️ Running Locally` section for details).
-
-We want you to feel empowered to tailor Ankit to your unique needs. All feedback, suggestions, issues, and contributions are warmly welcomed and appreciated!
 
 ## ▶️ Runnning Locally
 1. Clone the repository
